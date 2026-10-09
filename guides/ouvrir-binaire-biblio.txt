@@ -1,0 +1,2 @@
+vscode ➜ /workspaces/420-5G4-TPcpp-nbc (main) $ chmod +x bibliotheque
+vscode ➜ /workspaces/420-5G4-TPcpp-nbc (main) $ ./bibliotheque

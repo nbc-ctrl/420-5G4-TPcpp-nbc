@@ -1,0 +1,11 @@
+1. Ouvrir le cmd prompt
+2. Aller à la racine de son dossier
+3. « code -n . »
+4. ctrl+shift+P
+5. >Dev Containers:Open Folder in Container
+6. Add configuration to workspace
+    7. c++ devcontainers
+    8. debian (default)
+    9. CMake 3.22.2
+    10. Ok x2
+11. gcc --version
