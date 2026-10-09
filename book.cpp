@@ -68,8 +68,19 @@ public:
     void checkOut(const string& borrowerId){}
     void returnBook(){}
     string toString() const{return "";}
-    string toFileFormat() const{return "";}
+    string toFileFormat() const{
+        return this->title + "|" 
+        + this->author + "|" 
+        + this->isbn + "|" 
+        + (this->isAvailable ? "1" : "0") + "|" 
+        + this->borrowerId; // source : (1)
+    }
+
     void fromFileFormat(const string& line){}
 };
 
 #endif
+
+
+// ====== SOURCE(S) ====== 
+// (1) : https://stackoverflow.com/questions/11953200/concatenate-a-string-and-a-boolean-in-c

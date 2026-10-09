@@ -129,6 +129,30 @@ bibliotheque/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bibliotheque.dir/build.make CMakeFiles/bibliotheque.dir/build
 .PHONY : bibliotheque/fast
 
+book.o: book.cpp.o
+.PHONY : book.o
+
+# target to build an object file
+book.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bibliotheque.dir/build.make CMakeFiles/bibliotheque.dir/book.cpp.o
+.PHONY : book.cpp.o
+
+book.i: book.cpp.i
+.PHONY : book.i
+
+# target to preprocess a source file
+book.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bibliotheque.dir/build.make CMakeFiles/bibliotheque.dir/book.cpp.i
+.PHONY : book.cpp.i
+
+book.s: book.cpp.s
+.PHONY : book.s
+
+# target to generate assembly for a file
+book.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bibliotheque.dir/build.make CMakeFiles/bibliotheque.dir/book.cpp.s
+.PHONY : book.cpp.s
+
 filemanager.o: filemanager.cpp.o
 .PHONY : filemanager.o
 
@@ -234,6 +258,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... bibliotheque"
+	@echo "... book.o"
+	@echo "... book.i"
+	@echo "... book.s"
 	@echo "... filemanager.o"
 	@echo "... filemanager.i"
 	@echo "... filemanager.s"
