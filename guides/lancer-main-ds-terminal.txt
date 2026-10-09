@@ -1,3 +1,4 @@
-$ g++ -o prog main.cpp
+$ cd build
+$ make
 $ ls
-$ ./prog
+$ ./bibliotheque
