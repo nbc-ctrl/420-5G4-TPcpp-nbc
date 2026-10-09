@@ -62,10 +62,12 @@ string Book::toFileFormat() const{
     return this->title + "|" 
     + this->author + "|" 
     + this->isbn + "|" 
-    + (this->isAvailable ? "1" : "0") + "|" 
-    + this->borrowerId; // source : (1)
+    + (this->isAvailable ? "1" : "0") + "|" // source : (1)
+    + this->borrowerId; 
 }
-void Book::fromFileFormat(const string& line){}
+void Book::fromFileFormat(const string& line){
+
+}
 
 
 // ====== SOURCE(S) ====== 
