@@ -1,6 +1,7 @@
 #include "book.h"
 #include <string>
 #include <iostream>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -66,9 +67,31 @@ string Book::toFileFormat() const{
     + this->borrowerId; 
 }
 void Book::fromFileFormat(const string& line){
+    stringstream ss(line);
+    string elem;
+    int cmptr = 0;
 
+    while (getline(ss, elem, '|')) {
+        cmptr++;
+        switch (cmptr) {
+            case 1 : 
+                this->title = elem;
+                break;
+            case 2 :
+                this->author = elem;
+                    break;
+            case 3 :
+                this->isbn = elem;
+                    break;
+            case 4 :
+                //this->isAvailable = (elem="1") ? true : false; !! NE FONCTIONNE PAS, À CORRIGER
+                    break;
+        }
+        cout << elem << endl;
+    } // source : (2)
 }
 
 
 // ====== SOURCE(S) ====== 
 // (1) : https://stackoverflow.com/questions/11953200/concatenate-a-string-and-a-boolean-in-c
+// (2) : https://www.geeksforgeeks.org/cpp/how-to-split-string-by-delimiter-in-cpp/
