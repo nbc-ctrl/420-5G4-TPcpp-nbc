@@ -67,8 +67,8 @@ public:
     // Methods
     void checkOut(const string& borrowerId){}
     void returnBook(){}
-    string toString() const{}
-    string toFileFormat() const{}
+    string toString() const{return "";}
+    string toFileFormat() const{return "";}
     void fromFileFormat(const string& line){}
 };
 
