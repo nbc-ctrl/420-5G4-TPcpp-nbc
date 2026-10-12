@@ -51,6 +51,7 @@ void printUsage(const char* programName) {
 
 int main(int argc, char* argv[]) {
     string dataDir;
+    static int idUser = 0;
 
     for (int i = 1; i < argc; ++i) {
         string arg = argv[i];
@@ -179,7 +180,10 @@ int main(int argc, char* argv[]) {
             
             case 7: { // Add User
                 string name = getInput("Entrez le nom de l'utilisateur : ");
-                string userId = getInput("Entrez l'ID de l'utilisateur : ");
+                // string userId = getInput("Entrez l'ID de l'utilisateur : ");
+                idUser++;
+                string userId = to_string(idUser);
+                cout << "ID de l'utilisateur : " << idUser << "\n";
                 
                 if (library.findUserById(userId)) {
                     cout << "Erreur : Un utilisateur avec l'ID " << userId << " existe déjà.\n";
