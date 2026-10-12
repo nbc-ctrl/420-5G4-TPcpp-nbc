@@ -58,7 +58,11 @@ void Book::setBorrowerId(const string& id){
 // Methods
 void Book::checkOut(const string& borrowerId){}
 void Book::returnBook(){}
-string Book::toString() const{return "";}
+string Book::toString() const{
+    return "Titre : " + this->title + "\n" +
+    "Auteur : " + this->author + "\n" +
+    "ISBN : " + this->isbn + "\n" +
+    "Statut : " + (this->isAvailable ? "Disponible" : "Non disponible") + "\n";}
 string Book::toFileFormat() const{
     return this->title + "|" 
     + this->author + "|" 
@@ -84,7 +88,7 @@ void Book::fromFileFormat(const string& line){
                 this->isbn = elem;
                     break;
             case 4 :
-                //this->isAvailable = (elem="1") ? true : false; !! NE FONCTIONNE PAS, À CORRIGER
+                this->isAvailable = ((elem=="1") ? true : false); //!! NE FONCTIONNE PAS, À CORRIGER
                     break;
         }
         cout << elem << endl;

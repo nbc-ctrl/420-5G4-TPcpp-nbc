@@ -1,0 +1,27 @@
+[
+{
+  "directory": "/workspaces/420-5G4-TPcpp-nbc/build",
+  "command": "/usr/bin/c++   -g -Wall -Wextra -Wpedantic -o CMakeFiles/bibliotheque.dir/book.cpp.o -c /workspaces/420-5G4-TPcpp-nbc/book.cpp",
+  "file": "/workspaces/420-5G4-TPcpp-nbc/book.cpp"
+},
+{
+  "directory": "/workspaces/420-5G4-TPcpp-nbc/build",
+  "command": "/usr/bin/c++   -g -Wall -Wextra -Wpedantic -o CMakeFiles/bibliotheque.dir/filemanager.cpp.o -c /workspaces/420-5G4-TPcpp-nbc/filemanager.cpp",
+  "file": "/workspaces/420-5G4-TPcpp-nbc/filemanager.cpp"
+},
+{
+  "directory": "/workspaces/420-5G4-TPcpp-nbc/build",
+  "command": "/usr/bin/c++   -g -Wall -Wextra -Wpedantic -o CMakeFiles/bibliotheque.dir/library.cpp.o -c /workspaces/420-5G4-TPcpp-nbc/library.cpp",
+  "file": "/workspaces/420-5G4-TPcpp-nbc/library.cpp"
+},
+{
+  "directory": "/workspaces/420-5G4-TPcpp-nbc/build",
+  "command": "/usr/bin/c++   -g -Wall -Wextra -Wpedantic -o CMakeFiles/bibliotheque.dir/main.cpp.o -c /workspaces/420-5G4-TPcpp-nbc/main.cpp",
+  "file": "/workspaces/420-5G4-TPcpp-nbc/main.cpp"
+},
+{
+  "directory": "/workspaces/420-5G4-TPcpp-nbc/build",
+  "command": "/usr/bin/c++   -g -Wall -Wextra -Wpedantic -o CMakeFiles/bibliotheque.dir/user.cpp.o -c /workspaces/420-5G4-TPcpp-nbc/user.cpp",
+  "file": "/workspaces/420-5G4-TPcpp-nbc/user.cpp"
+}
+]
