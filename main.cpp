@@ -86,6 +86,9 @@ int main(int argc, char* argv[]) {
     
     // Load existing data
     cout << "Chargement des données de la bibliothèque...\n";
+    cout << dataDir << " : chemin des donnees\n";
+    cout << booksFile << " : chemin des donnees livres\n";
+    cout << usersFile << " : chemin des donnees utilisateurs\n";
     fileManager.loadLibraryData(library);
     
     int choice;
