@@ -10,7 +10,7 @@ Book::Book() {
     this->title = "";
     this->author = "";
     this->isbn = "";
-    this->isAvailable = false;
+    this->isAvailable = true;
     this->borrowerId = "";
 }
 Book::Book(const string& title, const string& author, const string& isbn){
