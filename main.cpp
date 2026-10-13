@@ -117,8 +117,8 @@ int main(int argc, char* argv[]) {
                 } else {
                     Book newBook(title, author, isbn);
                     library.addBook(newBook);
-                    fileManager.saveBooksToFile(library); // etait manquant pr ajouter a fichier
-                    cout << "Livre ajouté avec succès !\n";
+                    //fileManager.saveBooksToFile(library); // etait manquant pr ajouter a fichier
+                    cout << "Livre ajouté avec succès ! (Sauvegardez avec no 12)\n";
                 }
                 pauseForInput();
                 break;
@@ -128,7 +128,8 @@ int main(int argc, char* argv[]) {
                 string isbn = getInput("Entrez l'ISBN du livre à supprimer : ");
                 
                 if (library.removeBook(isbn)) {
-                    cout << "Livre supprimé avec succès !\n";
+                    //fileManager.saveBooksToFile(library); 
+                    cout << "Livre supprimé avec succès ! (Sauvegardez avec no 12)\n";
                 } else {
                     cout << "Livre non trouvé.\n";
                 }
@@ -194,7 +195,8 @@ int main(int argc, char* argv[]) {
                 } else {
                     User newUser(name, userId);
                     library.addUser(newUser);
-                    cout << "Utilisateur ajouté avec succès !\n";
+                    //fileManager.saveUsersToFile(library);
+                    cout << "Utilisateur ajouté avec succès ! (Sauvegardez avec no 12)\n";
                 }
                 pauseForInput();
                 break;
@@ -210,7 +212,8 @@ int main(int argc, char* argv[]) {
                 string userId = getInput("Entrez l'ID de l'utilisateur : ");
                 
                 if (library.checkOutBook(isbn, userId)) {
-                    cout << "Livre emprunté avec succès !\n";
+                    //fileManager.saveLibraryData(library);
+                    cout << "Livre emprunté avec succès ! (Sauvegardez avec no 12)\n";
                 } else {
                     cout << "Erreur : Impossible d'emprunter le livre. Vérifiez l'ISBN, l'ID utilisateur et la disponibilité du livre.\n";
                 }
@@ -222,7 +225,8 @@ int main(int argc, char* argv[]) {
                 string isbn = getInput("Entrez l'ISBN du livre à retourner : ");
                 
                 if (library.returnBook(isbn)) {
-                    cout << "Livre retourné avec succès !\n";
+                    //fileManager.saveLibraryData(library);
+                    cout << "Livre retourné avec succès ! (Sauvegardez avec no 12)\n";
                 } else {
                     cout << "Erreur : Impossible de retourner le livre. Vérifiez l'ISBN et que le livre est bien emprunté.\n";
                 }
