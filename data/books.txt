@@ -39,3 +39,4 @@ Maximes|La Rochefoucauld|9782070380987|1|
 Pensées|Blaise Pascal|9782070380994|0|
 Lettres persanes|Montesquieu|9782070381001|1|
 Do you|Hello|123ABC|0|
+Ouiii|Nonnn|1234567890|1|

@@ -257,13 +257,18 @@ int main(int argc, char* argv[]) {
             }
             
             case 12: { // Save Data
-                if (fileManager.saveLibraryData(library)) {
-                    cout << "Données de la bibliothèque sauvegardées avec succès !\n";
+                if (!dataDir.empty()) {
+                    if (fileManager.saveLibraryData(library)) {
+                        cout << "Données de la bibliothèque sauvegardées avec succès !\n";
+                    } else {
+                        cout << "Erreur lors de la sauvegarde des données de la bibliothèque.\n";
+                    }
                 } else {
-                    cout << "Erreur lors de la sauvegarde des données de la bibliothèque.\n";
+                    cerr << "Erreur : Les chemins sont vides. Lancez AVEC --datat-dir.\n";
                 }
                 pauseForInput();
                 break;
+                
             }
             
             case 13: { // Create Backup
@@ -273,10 +278,14 @@ int main(int argc, char* argv[]) {
             }
 
             case 14: { // Save Data to CSV
-                if (fileManager.saveLibraryDataToCSV(library)) {
-                    cout << "Données de la bibliothèque sauvegardées en CSV avec succès !\n";
+                if (!dataDir.empty()) {
+                    if (fileManager.saveLibraryDataToCSV(library)) {
+                        cout << "Données de la bibliothèque sauvegardées en CSV avec succès !\n";
+                    } else {
+                        cout << "Erreur lors de la sauvegarde des données de la bibliothèque en CSV.\n";
+                    }
                 } else {
-                    cout << "Erreur lors de la sauvegarde des données de la bibliothèque en CSV.\n";
+                    cerr << "Erreur : Les chemins sont vides. Lancez AVEC --datat-dir.\n";
                 }
                 pauseForInput();
                 break;
