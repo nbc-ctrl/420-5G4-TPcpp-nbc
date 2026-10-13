@@ -208,7 +208,7 @@ bool FileManager::loadUsersFromCSVFile(Library& library){
     while (getline(file, line)) {
         if (!line.empty()) {
             User user;
-            user.fromFileFormat(line);
+            user.fromCSVFileFormat(line);
             library.addUser(user);
             count++;
         }

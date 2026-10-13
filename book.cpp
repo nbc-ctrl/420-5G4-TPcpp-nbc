@@ -97,6 +97,10 @@ void Book::fromFileFormat(const string& line){
             case 4 :
                 this->isAvailable = ((elem=="1") ? true : false); 
                     break;
+            default :
+               if (elem != "") {
+                this->borrowerId = elem;
+               } 
         }
     } // source : (2)
 }
@@ -109,7 +113,9 @@ void Book::fromCSVFileFormat(const string& line){
         cmptr++;
         string elemCleaned  = elem;
         // source : (3)
-        if (elem.at(0) == '\"' && elem.at(elem.length() - 1) == '\"') {
+        if (elem == "\"\"") {
+            elemCleaned = "";
+        } else if (elem.at(0) == '\"' && elem.at(elem.length() - 1) == '\"') {
             elemCleaned = elem.substr(1, (elem.length() - 2));
         }
         switch (cmptr) {
@@ -125,6 +131,10 @@ void Book::fromCSVFileFormat(const string& line){
             case 4 :
                 this->isAvailable = ((elemCleaned=="1") ? true : false); 
                     break;
+            default :
+               if (elemCleaned != "") {
+                this->borrowerId = elemCleaned;
+               } 
         }
     } // source : (2)
 }

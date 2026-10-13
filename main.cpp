@@ -34,6 +34,7 @@ void displayMenu() {
     cout << "12. Sauvegarder les Données\n";
     cout << "13. Créer une Sauvegarde\n";
     cout << "14. Exporter les données dans un fichier CSV\n";
+    cout << "15. Importer les données d'un fichier CSV\n";
     cout << "0.  Quitter\n";
     cout << "======================================================\n";
     cout << "Entrez votre choix : ";
@@ -276,6 +277,16 @@ int main(int argc, char* argv[]) {
                     cout << "Données de la bibliothèque sauvegardées en CSV avec succès !\n";
                 } else {
                     cout << "Erreur lors de la sauvegarde des données de la bibliothèque en CSV.\n";
+                }
+                pauseForInput();
+                break;
+            }
+
+            case 15: { // Save Data to CSV
+                if (fileManager.loadLibraryDataFromCSV(library)) {
+                    cout << "Données du fichier CSV importées avec succès ! Voir avec no 5\n";
+                } else {
+                    cout << "Erreur lors de l'importation des données en CSV.\n";
                 }
                 pauseForInput();
                 break;
