@@ -17,7 +17,7 @@ Book::Book(const string& title, const string& author, const string& isbn){
     this->title = title;
     this->author = author;
     this->isbn = isbn;
-    this->isAvailable = false;
+    this->isAvailable = true;
     this->borrowerId = "";
 }
 
@@ -88,10 +88,9 @@ void Book::fromFileFormat(const string& line){
                 this->isbn = elem;
                     break;
             case 4 :
-                this->isAvailable = ((elem=="1") ? true : false); //!! NE FONCTIONNE PAS, À CORRIGER
+                this->isAvailable = ((elem=="1") ? true : false); 
                     break;
         }
-        cout << elem << endl;
     } // source : (2)
 }
 
