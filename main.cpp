@@ -75,6 +75,7 @@ int main(int argc, char* argv[]) {
     string usersFile;
     string booksCSVFile;
     string usersCSVFile;
+    string actionsFile;
     if (!dataDir.empty()) {
         if (!filesystem::is_directory(dataDir)) {
             cerr << "Erreur : le répertoire " << dataDir << " n'existe pas.\n";
@@ -85,10 +86,11 @@ int main(int argc, char* argv[]) {
         usersFile = (filesystem::path(dataDir) / "users.txt").string();
         booksCSVFile = (filesystem::path(dataDir) / "bookscsv.csv").string();
         usersCSVFile = (filesystem::path(dataDir) / "userscsv.csv").string();
+        actionsFile = (filesystem::path(dataDir) / "journal.csv").string();
     }
 
     Library library;
-    FileManager fileManager(booksFile, usersFile, booksCSVFile, usersCSVFile);
+    FileManager fileManager(booksFile, usersFile, booksCSVFile, usersCSVFile, actionsFile);
     
     // Load existing data
     cout << "Chargement des données de la bibliothèque...\n";
@@ -99,6 +101,7 @@ int main(int argc, char* argv[]) {
     
     int choice;
     bool running = true;
+    string journalLine;
     
     while (running) {
         displayMenu();
@@ -237,7 +240,8 @@ int main(int argc, char* argv[]) {
                 string isbn = getInput("Entrez l'ISBN du livre à retourner : ");
                 
                 if (library.returnBook(isbn)) {
-                    //fileManager.saveLibraryData(library);
+                    journalLine = "[RETOUR LIVRE]";
+                    fileManager.saveActionToFile(journalLine + " ");
                     cout << "Livre retourné avec succès ! (Sauvegardez avec no 12)\n";
                 } else {
                     cout << "Erreur : Impossible de retourner le livre. Vérifiez l'ISBN et que le livre est bien emprunté.\n";
@@ -252,6 +256,8 @@ int main(int argc, char* argv[]) {
                 cout << "Livres Disponibles : " << library.getAvailableBookCount() << "\n";
                 cout << "Livres Empruntés : " << library.getCheckedOutBookCount() << "\n";
                 cout << "Total des Utilisateurs : " << library.getAllUsers().size() << "\n";
+                journalLine = "[IMPRESSION STATS]";
+                fileManager.saveActionToFile(journalLine);
                 pauseForInput();
                 break;
             }
@@ -259,6 +265,8 @@ int main(int argc, char* argv[]) {
             case 12: { // Save Data
                 if (!dataDir.empty()) {
                     if (fileManager.saveLibraryData(library)) {
+                    journalLine = "[SAUVEGARDER]";
+                    fileManager.saveActionToFile(journalLine);
                         cout << "Données de la bibliothèque sauvegardées avec succès !\n";
                     } else {
                         cout << "Erreur lors de la sauvegarde des données de la bibliothèque.\n";
@@ -273,6 +281,8 @@ int main(int argc, char* argv[]) {
             
             case 13: { // Create Backup
                 fileManager.createBackup();
+                journalLine = "[CREATION SAUVEGARDE]";
+                fileManager.saveActionToFile(journalLine);
                 pauseForInput();
                 break;
             }
@@ -280,6 +290,8 @@ int main(int argc, char* argv[]) {
             case 14: { // Save Data to CSV
                 if (!dataDir.empty()) {
                     if (fileManager.saveLibraryDataToCSV(library)) {
+                        journalLine = "[EXPORT EN CSV]";
+                        fileManager.saveActionToFile(journalLine);
                         cout << "Données de la bibliothèque sauvegardées en CSV avec succès !\n";
                     } else {
                         cout << "Erreur lors de la sauvegarde des données de la bibliothèque en CSV.\n";
@@ -291,8 +303,10 @@ int main(int argc, char* argv[]) {
                 break;
             }
 
-            case 15: { // Save Data to CSV
+            case 15: { // Get Data from CSV
                 if (fileManager.loadLibraryDataFromCSV(library)) {
+                    journalLine = "[IMPORT EN CSV]";
+                    fileManager.saveActionToFile(journalLine);
                     cout << "Données du fichier CSV importées avec succès ! Voir avec no 5\n";
                 } else {
                     cout << "Erreur lors de l'importation des données en CSV.\n";
@@ -303,6 +317,8 @@ int main(int argc, char* argv[]) {
             
             case 0: // Exit
                 cout << "Sauvegarde des données avant la fermeture...\n";
+                journalLine = "[QUITTER]";
+                fileManager.saveActionToFile(journalLine);
                 fileManager.saveLibraryData(library);
                 cout << "Merci d'avoir utilisé le Système de Gestion de Bibliothèque Personnelle !\n";
                 running = false;

@@ -13,11 +13,13 @@ private:
     string usersFileName;
     string booksCSVFileName;
     string usersCSVFileName;
+    string actionsFileName;
 
 public:
     // Constructor
     FileManager(const string& booksFile, const string& usersFile,
-                            const string& booksCSVFile, const string& usersCSVFile);
+                const string& booksCSVFile, const string& usersCSVFile,
+                const string& actionsFile);
     
     // File operations
     bool saveLibraryData(Library& library);
@@ -26,6 +28,7 @@ public:
     // Individual file operations
     bool saveBooksToFile(Library& library);
     bool saveUsersToFile(Library& library);
+    bool saveActionToFile(string actionLine);
     bool loadBooksFromFile(Library& library);
     bool loadUsersFromFile(Library& library);
     
@@ -43,3 +46,7 @@ public:
 };
 
 #endif
+
+
+// ====== SOURCE(S) ====== 
+// (1) : https://en.cppreference.com/cpp/chrono/system_clock/now

@@ -10,9 +10,11 @@ using namespace std;
 
 // Constructor
 FileManager::FileManager(const string& booksFile, const string& usersFile,
-                            const string& booksCSVFile, const string& usersCSVFile)
+                            const string& booksCSVFile, const string& usersCSVFile,
+                            const string& actionsFile)
     : booksFileName(booksFile), usersFileName(usersFile),
-    booksCSVFileName(booksCSVFile), usersCSVFileName(usersCSVFile) {}
+    booksCSVFileName(booksCSVFile), usersCSVFileName(usersCSVFile),
+    actionsFileName(actionsFile) {}
 
 // Save all library data
 bool FileManager::saveLibraryData(Library& library) {
@@ -55,6 +57,23 @@ bool FileManager::saveUsersToFile(Library& library) {
     for (User* user : users) {
         file << user->toFileFormat() << "\n";
     }
+    
+    file.close();
+    return true;
+}
+
+// Save users to file
+bool FileManager::saveActionToFile(string actionLine) {
+    const auto now = std::chrono::system_clock::now();
+    const std::time_t t_c = std::chrono::system_clock::to_time_t(now);
+    std::cout << "The system clock is currently at " << std::ctime(&t_c);
+    ofstream file(actionsFileName);
+    if (!file.is_open()) {
+        cout << "Erreur : Impossible d'ouvrir " << actionsFileName << " en écriture.\n";
+        return false;
+    }
+    
+    file << std::ctime(&t_c) << " - " << actionLine << "\n";
     
     file.close();
     return true;
