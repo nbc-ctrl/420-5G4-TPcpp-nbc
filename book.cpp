@@ -56,8 +56,36 @@ void Book::setBorrowerId(const string& id){
 }
 
 // Methods
-void Book::checkOut(const string& borrowerId){}
-void Book::returnBook(){}
+/*
+// Borrow a book
+void User::borrowBook(const string& isbn) {
+    if (!hasBorrowedBook(isbn)) {
+        borrowedBooks.push_back(isbn);
+    }
+}
+
+// Return a book
+void User::returnBook(const string& isbn) {
+    auto it = find(borrowedBooks.begin(), borrowedBooks.end(), isbn);
+    if (it != borrowedBooks.end()) {
+        borrowedBooks.erase(it);
+    }
+}
+
+
+*/
+void Book::checkOut(const string& borrowerId){
+    if (this->isAvailable) {
+        this->borrowerId = borrowerId;
+        this->isAvailable = false;
+    }
+}
+void Book::returnBook(){
+    if (!this->isAvailable) {
+        this->borrowerId = "";
+        this->isAvailable = true;
+    }
+}
 string Book::toString() const{
     return "Titre : " + this->title + "\n" +
     "Auteur : " + this->author + "\n" +
