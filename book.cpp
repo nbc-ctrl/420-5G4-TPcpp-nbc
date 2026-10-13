@@ -100,8 +100,37 @@ void Book::fromFileFormat(const string& line){
         }
     } // source : (2)
 }
+void Book::fromCSVFileFormat(const string& line){
+    stringstream ss(line);
+    string elem;
+    int cmptr = 0;
+
+    while (getline(ss, elem, ',')) {
+        cmptr++;
+        string elemCleaned  = elem;
+        // source : (3)
+        if (elem.at(0) == '\"' && elem.at(elem.length() - 1) == '\"') {
+            elemCleaned = elem.substr(1, (elem.length() - 2));
+        }
+        switch (cmptr) {
+            case 1 : 
+                this->title = elemCleaned;
+                break;
+            case 2 :
+                this->author = elemCleaned;
+                    break;
+            case 3 :
+                this->isbn = elemCleaned;
+                    break;
+            case 4 :
+                this->isAvailable = ((elemCleaned=="1") ? true : false); 
+                    break;
+        }
+    } // source : (2)
+}
 
 
 // ====== SOURCE(S) ====== 
 // (1) : https://stackoverflow.com/questions/11953200/concatenate-a-string-and-a-boolean-in-c
 // (2) : https://www.geeksforgeeks.org/cpp/how-to-split-string-by-delimiter-in-cpp/
+// (3) : https://www.w3schools.com/cpp/cpp_strings_access.asp

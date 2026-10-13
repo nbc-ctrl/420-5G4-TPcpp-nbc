@@ -165,3 +165,56 @@ bool FileManager::saveUsersToCSVFile(Library& library) {
 bool FileManager::saveLibraryDataToCSV(Library& library) {
     return saveBooksToCSVFile(library) && saveUsersToCSVFile(library);
 }
+
+// Load all library data from CSV file
+bool FileManager::loadLibraryDataFromCSV(Library& library) {
+    bool booksLoaded = loadBooksFromCSVFile(library);
+    bool usersLoaded = loadUsersFromCSVFile(library);
+    return booksLoaded || usersLoaded; // Return true if at least one file was loaded
+}
+
+bool FileManager::loadBooksFromCSVFile(Library& library) {
+    ifstream file(booksCSVFileName);
+    if (!file.is_open()) {
+        cout << "Aucun fichier CSV de livres existant trouvé.\n";
+        return false;
+    }
+    
+    string line;
+    int count = 0;
+    while (getline(file, line)) {
+        if (!line.empty()) {
+            Book book;
+            book.fromCSVFileFormat(line);
+            library.addBook(book);
+            count++;
+        }
+    }
+    
+    file.close();
+    cout << "Chargé " << count << " livre(s) depuis le fichier CSV.\n";
+    return true;
+}
+
+bool FileManager::loadUsersFromCSVFile(Library& library){
+    ifstream file(usersFileName);
+    if (!file.is_open()) {
+        cout << "Aucun fichier CSV d'utilisateurs existant trouvé.\n";
+        return false;
+    }
+    
+    string line;
+    int count = 0;
+    while (getline(file, line)) {
+        if (!line.empty()) {
+            User user;
+            user.fromFileFormat(line);
+            library.addUser(user);
+            count++;
+        }
+    }
+    
+    file.close();
+    cout << "Chargé " << count << " utilisateur(s) depuis le fichier CSV.\n";
+    return true;
+}

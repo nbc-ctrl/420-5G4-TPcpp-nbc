@@ -37,6 +37,9 @@ public:
     bool saveBooksToCSVFile(Library& library);
     bool saveUsersToCSVFile(Library& library);
     bool saveLibraryDataToCSV(Library& library);
+    bool loadLibraryDataFromCSV(Library& library);
+    bool loadBooksFromCSVFile(Library& library);
+    bool loadUsersFromCSVFile(Library& library);
 };
 
 #endif
