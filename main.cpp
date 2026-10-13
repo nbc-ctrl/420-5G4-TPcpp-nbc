@@ -51,7 +51,7 @@ void printUsage(const char* programName) {
 
 int main(int argc, char* argv[]) {
     string dataDir;
-    static int idUser = 0;
+    //static int idUser = 0;
 
     for (int i = 1; i < argc; ++i) {
         string arg = argv[i];
@@ -117,7 +117,6 @@ int main(int argc, char* argv[]) {
                 } else {
                     Book newBook(title, author, isbn);
                     library.addBook(newBook);
-                    //fileManager.saveBooksToFile(library); // etait manquant pr ajouter a fichier
                     cout << "Livre ajouté avec succès ! (Sauvegardez avec no 12)\n";
                 }
                 pauseForInput();
@@ -128,7 +127,6 @@ int main(int argc, char* argv[]) {
                 string isbn = getInput("Entrez l'ISBN du livre à supprimer : ");
                 
                 if (library.removeBook(isbn)) {
-                    //fileManager.saveBooksToFile(library); 
                     cout << "Livre supprimé avec succès ! (Sauvegardez avec no 12)\n";
                 } else {
                     cout << "Livre non trouvé.\n";
@@ -185,10 +183,18 @@ int main(int argc, char* argv[]) {
             
             case 7: { // Add User
                 string name = getInput("Entrez le nom de l'utilisateur : ");
+                string userId;
                 // string userId = getInput("Entrez l'ID de l'utilisateur : ");
-                idUser++;
-                string userId = to_string(idUser);
-                cout << "ID de l'utilisateur : " << idUser << "\n";
+                int nbUsers = library.getAllUsers().size() + 1;
+                if (nbUsers <= 9) {
+                    userId = "USR00" + to_string(nbUsers);
+                } else if (nbUsers <= 99) {
+                    userId = "USR0" + to_string(nbUsers);
+                } else {
+                    userId = "USR" + to_string(nbUsers);
+                }
+                
+                cout << "ID de l'utilisateur : " << userId << "\n";
                 
                 if (library.findUserById(userId)) {
                     cout << "Erreur : Un utilisateur avec l'ID " << userId << " existe déjà.\n";
