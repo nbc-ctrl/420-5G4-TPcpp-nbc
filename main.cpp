@@ -117,6 +117,7 @@ int main(int argc, char* argv[]) {
                 } else {
                     Book newBook(title, author, isbn);
                     library.addBook(newBook);
+                    fileManager.saveBooksToFile(library); // etait manquant pr ajouter a fichier
                     cout << "Livre ajouté avec succès !\n";
                 }
                 pauseForInput();
