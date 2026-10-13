@@ -11,10 +11,13 @@ class FileManager {
 private:
     string booksFileName;
     string usersFileName;
+    string booksCSVFileName;
+    string usersCSVFileName;
 
 public:
     // Constructor
-    FileManager(const string& booksFile, const string& usersFile);
+    FileManager(const string& booksFile, const string& usersFile,
+                            const string& booksCSVFile, const string& usersCSVFile);
     
     // File operations
     bool saveLibraryData(Library& library);
@@ -29,6 +32,11 @@ public:
     // Utility methods
     bool fileExists(const string& filename);
     void createBackup();
+
+    // CSV
+    bool saveBooksToCSVFile(Library& library);
+    bool saveUsersToCSVFile(Library& library);
+    bool saveLibraryDataToCSV(Library& library);
 };
 
 #endif

@@ -70,6 +70,13 @@ string Book::toFileFormat() const{
     + (this->isAvailable ? "1" : "0") + "|" // source : (1)
     + this->borrowerId; 
 }
+string Book::toCSVFileFormat() const{
+    return + "\"" + this->title + "\"," 
+     + "\"" + this->author + "\"," 
+     + "\"" + this->isbn + "\"," 
+     + (this->isAvailable ? "1" : "0") + ","
+     + "\"" + this->borrowerId + "\""; 
+}
 void Book::fromFileFormat(const string& line){
     stringstream ss(line);
     string elem;

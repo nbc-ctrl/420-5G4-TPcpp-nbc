@@ -37,6 +37,7 @@ public:
     void returnBook();
     string toString() const;
     string toFileFormat() const;
+    string toCSVFileFormat() const;
     void fromFileFormat(const string& line);
 };
 

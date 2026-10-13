@@ -33,6 +33,7 @@ void displayMenu() {
     cout << "11. Statistiques de la Bibliothèque\n";
     cout << "12. Sauvegarder les Données\n";
     cout << "13. Créer une Sauvegarde\n";
+    cout << "14. Exporter les données dans un fichier CSV\n";
     cout << "0.  Quitter\n";
     cout << "======================================================\n";
     cout << "Entrez votre choix : ";
@@ -71,6 +72,8 @@ int main(int argc, char* argv[]) {
 
     string booksFile;
     string usersFile;
+    string booksCSVFile;
+    string usersCSVFile;
     if (!dataDir.empty()) {
         if (!filesystem::is_directory(dataDir)) {
             cerr << "Erreur : le répertoire " << dataDir << " n'existe pas.\n";
@@ -79,10 +82,12 @@ int main(int argc, char* argv[]) {
         }
         booksFile = (filesystem::path(dataDir) / "books.txt").string();
         usersFile = (filesystem::path(dataDir) / "users.txt").string();
+        booksCSVFile = (filesystem::path(dataDir) / "bookscsv.csv").string();
+        usersCSVFile = (filesystem::path(dataDir) / "userscsv.csv").string();
     }
 
     Library library;
-    FileManager fileManager(booksFile, usersFile);
+    FileManager fileManager(booksFile, usersFile, booksCSVFile, usersCSVFile);
     
     // Load existing data
     cout << "Chargement des données de la bibliothèque...\n";
@@ -262,6 +267,16 @@ int main(int argc, char* argv[]) {
             
             case 13: { // Create Backup
                 fileManager.createBackup();
+                pauseForInput();
+                break;
+            }
+
+            case 14: { // Save Data to CSV
+                if (fileManager.saveLibraryDataToCSV(library)) {
+                    cout << "Données de la bibliothèque sauvegardées en CSV avec succès !\n";
+                } else {
+                    cout << "Erreur lors de la sauvegarde des données de la bibliothèque en CSV.\n";
+                }
                 pauseForInput();
                 break;
             }

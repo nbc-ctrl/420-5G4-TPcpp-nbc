@@ -2,12 +2,17 @@
 #include <iostream>
 #include <filesystem>
 #include "filemanager.h"
+#include <vector>
+#include <string>
+#include <sstream>
 
 using namespace std;
 
 // Constructor
-FileManager::FileManager(const string& booksFile, const string& usersFile)
-    : booksFileName(booksFile), usersFileName(usersFile) {}
+FileManager::FileManager(const string& booksFile, const string& usersFile,
+                            const string& booksCSVFile, const string& usersCSVFile)
+    : booksFileName(booksFile), usersFileName(usersFile),
+    booksCSVFileName(booksCSVFile), usersCSVFileName(usersCSVFile) {}
 
 // Save all library data
 bool FileManager::saveLibraryData(Library& library) {
@@ -120,4 +125,43 @@ void FileManager::createBackup() {
     }
     
     cout << "Fichiers de sauvegarde créés.\n";
+}
+
+// Save books to CSV file
+bool FileManager::saveBooksToCSVFile(Library& library) {
+    ofstream file(booksCSVFileName);
+    if (!file.is_open()) {
+        cout << "Erreur : Impossible d'ouvrir " << booksCSVFileName << " en écriture.\n";
+        return false;
+    }
+    
+    auto books = library.getAllBooks();
+    for (Book* book : books) {
+        file << book->toCSVFileFormat() << "\n";
+    }
+    
+    file.close();
+    return true;
+}
+
+// Save users to CSV file
+bool FileManager::saveUsersToCSVFile(Library& library) {
+    ofstream file(usersCSVFileName);
+    if (!file.is_open()) {
+        cout << "Erreur : Impossible d'ouvrir " << usersCSVFileName << " en écriture.\n";
+        return false;
+    }
+    
+    auto users = library.getAllUsers();
+    for (User* user : users) {
+        file << user->toCSVFileFormat() << "\n";
+    }
+    
+    file.close();
+    return true;
+}
+
+// Save all library data to CSV
+bool FileManager::saveLibraryDataToCSV(Library& library) {
+    return saveBooksToCSVFile(library) && saveUsersToCSVFile(library);
 }
