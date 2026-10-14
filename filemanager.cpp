@@ -64,16 +64,16 @@ bool FileManager::saveUsersToFile(Library& library) {
 
 // Save users to file
 bool FileManager::saveActionToFile(string actionLine) {
-    const auto now = std::chrono::system_clock::now();
+    const auto now = std::chrono::system_clock::now(); // source : (1)
     const std::time_t t_c = std::chrono::system_clock::to_time_t(now);
-    std::cout << "The system clock is currently at " << std::ctime(&t_c);
-    ofstream file(actionsFileName);
+    string temps = std::ctime(&t_c);
+    ofstream file(actionsFileName, std::ios::app); // source : (2)
     if (!file.is_open()) {
         cout << "Erreur : Impossible d'ouvrir " << actionsFileName << " en écriture.\n";
         return false;
     }
-    
-    file << std::ctime(&t_c) << " - " << actionLine << "\n";
+    // retrait de retour de ligne
+    file << temps.substr(0, (temps.length() - 1)) << " - " <<  actionLine << "\n";
     
     file.close();
     return true;
@@ -237,3 +237,6 @@ bool FileManager::loadUsersFromCSVFile(Library& library){
     cout << "Chargé " << count << " utilisateur(s) depuis le fichier CSV.\n";
     return true;
 }
+
+// ====== SOURCE(S) ====== 
+// (1) : https://en.cppreference.com/cpp/chrono/system_clock/now

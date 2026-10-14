@@ -86,7 +86,7 @@ int main(int argc, char* argv[]) {
         usersFile = (filesystem::path(dataDir) / "users.txt").string();
         booksCSVFile = (filesystem::path(dataDir) / "bookscsv.csv").string();
         usersCSVFile = (filesystem::path(dataDir) / "userscsv.csv").string();
-        actionsFile = (filesystem::path(dataDir) / "journal.csv").string();
+        actionsFile = (filesystem::path(dataDir) / "journal.txt").string();
     }
 
     Library library;
@@ -126,6 +126,8 @@ int main(int argc, char* argv[]) {
                 } else {
                     Book newBook(title, author, isbn);
                     library.addBook(newBook);
+                    journalLine = "[AJOUT LIVRE] " + newBook.toFileFormat();
+                    fileManager.saveActionToFile(journalLine);
                     cout << "Livre ajouté avec succès ! (Sauvegardez avec no 12)\n";
                 }
                 pauseForInput();
@@ -134,12 +136,21 @@ int main(int argc, char* argv[]) {
             
             case 2: { // Remove Book
                 string isbn = getInput("Entrez l'ISBN du livre à supprimer : ");
+                string livreSupp = "";
+                Book* bookFound = library.findBookByISBN(isbn);
                 
-                if (library.removeBook(isbn)) {
-                    cout << "Livre supprimé avec succès ! (Sauvegardez avec no 12)\n";
+                //if (bookFound != NULL) {
+                if (bookFound != nullptr) {
+                    livreSupp = library.findBookByISBN(isbn)->toFileFormat();
+                    
+                    if(library.removeBook(isbn)) {
+                        cout << "Livre supprimé avec succès ! (Sauvegardez avec no 12)\n";
+                    }
                 } else {
                     cout << "Livre non trouvé.\n";
                 }
+                journalLine = "[RETRAIT LIVRE] " + livreSupp;
+                fileManager.saveActionToFile(journalLine);
                 pauseForInput();
                 break;
             }
@@ -158,6 +169,8 @@ int main(int argc, char* argv[]) {
                         cout << "-----------------------------\n";
                     }
                 }
+                journalLine = "[RECHERCHE TITRE] " + title;
+                fileManager.saveActionToFile(journalLine);
                 pauseForInput();
                 break;
             }
@@ -176,6 +189,8 @@ int main(int argc, char* argv[]) {
                         cout << "-----------------------------\n";
                     }
                 }
+                journalLine = "[RECHERCHE AUTEUR] " + author;
+                fileManager.saveActionToFile(journalLine);
                 pauseForInput();
                 break;
             }
@@ -183,10 +198,14 @@ int main(int argc, char* argv[]) {
             case 5: // Display All Books
                 library.displayAllBooks();
                 pauseForInput();
+                journalLine = "[AFFICHAGE LIVRES]";
+                fileManager.saveActionToFile(journalLine);
                 break;
             
             case 6: // Display Available Books
                 library.displayAvailableBooks();
+                journalLine = "[AFFICHAGE LIVRES DISPOS]";
+                fileManager.saveActionToFile(journalLine);
                 pauseForInput();
                 break;
             
@@ -210,7 +229,8 @@ int main(int argc, char* argv[]) {
                 } else {
                     User newUser(name, userId);
                     library.addUser(newUser);
-                    //fileManager.saveUsersToFile(library);
+                    journalLine = "[AJOUT UTILISATEUR] " + newUser.toFileFormat();
+                    fileManager.saveActionToFile(journalLine);
                     cout << "Utilisateur ajouté avec succès ! (Sauvegardez avec no 12)\n";
                 }
                 pauseForInput();
@@ -219,6 +239,8 @@ int main(int argc, char* argv[]) {
             
             case 8: // Display All Users
                 library.displayAllUsers();
+                journalLine = "[AFFICHAGE UTILISATEURS]";
+                fileManager.saveActionToFile(journalLine);
                 pauseForInput();
                 break;
             
@@ -227,7 +249,8 @@ int main(int argc, char* argv[]) {
                 string userId = getInput("Entrez l'ID de l'utilisateur : ");
                 
                 if (library.checkOutBook(isbn, userId)) {
-                    //fileManager.saveLibraryData(library);
+                journalLine = "[EMPRUNT LIVRE]";
+                fileManager.saveActionToFile(journalLine);
                     cout << "Livre emprunté avec succès ! (Sauvegardez avec no 12)\n";
                 } else {
                     cout << "Erreur : Impossible d'emprunter le livre. Vérifiez l'ISBN, l'ID utilisateur et la disponibilité du livre.\n";
@@ -240,8 +263,8 @@ int main(int argc, char* argv[]) {
                 string isbn = getInput("Entrez l'ISBN du livre à retourner : ");
                 
                 if (library.returnBook(isbn)) {
-                    journalLine = "[RETOUR LIVRE]";
-                    fileManager.saveActionToFile(journalLine + " ");
+                journalLine = "[RETOUR LIVRE]";
+                fileManager.saveActionToFile(journalLine);
                     cout << "Livre retourné avec succès ! (Sauvegardez avec no 12)\n";
                 } else {
                     cout << "Erreur : Impossible de retourner le livre. Vérifiez l'ISBN et que le livre est bien emprunté.\n";
