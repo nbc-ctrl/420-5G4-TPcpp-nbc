@@ -1,20 +1,5 @@
-# NORAH-BILLIE CASTOR (DA : 202265562)
-# Construire le projet
-Vous pouvez utiliser un dev container de base C++ de VScode.
-Le projet utilise cmake, pensez à l'inclure dans votre dev container.
-
-Voici les lignes de commandes pour compiler le projet:
-```
-$ mkdir build
-$ cd build
-$ cmake ..
-$ make
-```
-
-# Répertoire data
-
-Il contient 2 fichiers `books.txt`et `users.txt` que vous pouvez utilisez pour tester votre code.
-Pour ca il suffit de donner chemin vers le repertoire data avec l'application `bibliotheque -d <chemin verrs data>`
+# NORAH-BILLIE CASTOR 
+DA : 202265562
 
 # Fonctionnalités implémentées
 
@@ -58,4 +43,23 @@ void Book::fromFileFormat(const string& line){
 
 # Question 2 : Options de développement possible
 
-Proposez une solution plus adaptée pour la gestion de bibliothèque et faisant appel éventuellement à une technologie autre que le C++, et expliquez comment vous interfaceriez ça avec le C++. Quelle solution technologique utiliseriez vous ? Pensez au futur de cette bibliothèque à Alexandrie qui pourrait éventuellement contenir des millions de livres.
+_Proposez une solution plus adaptée pour la gestion de bibliothèque et faisant appel éventuellement à une technologie autre que le C++, et expliquez comment vous interfaceriez ça avec le C++. Quelle solution technologique utiliseriez vous ? Pensez au futur de cette bibliothèque à Alexandrie qui pourrait éventuellement contenir des millions de livres._
+
+Pour la gestion de la bibliothèque, tout d'abord, une technologie qui gère automatiquement la mémoire serait plus efficace pour l'écriture, le débogage et la maintenance du système de gestion de la bibliothèque. Voilà pourquoi je pense que ce programme pourrait être écrit en Java ou bien même en PHP pour le développement de ce système en application transactionnelle Web. Par ailleurs, l'enregistrement et la récupération des données à partir de fichiers textes n'est pas idéale pour une bibliothéque qui contiendra éventuellement des millions de livres et potentiellement des milliers d'utilisateurs. L'utilisation d'une base de données serait plus que pertinente. Ainsi les données seraient ajoutées et gérées dans une base de données MySQL par exemple. Et l'application PHP irait chercher les données de cette BD et y enverrait toute modification pour mettre la mettre à jour.
+
+# Construire le projet
+Vous pouvez utiliser un dev container de base C++ de VScode.
+Le projet utilise cmake, pensez à l'inclure dans votre dev container.
+
+Voici les lignes de commandes pour compiler le projet:
+```
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make
+```
+
+# Répertoire data
+
+Il contient 2 fichiers `books.txt`et `users.txt` que vous pouvez utilisez pour tester votre code.
+Pour ca il suffit de donner chemin vers le repertoire data avec l'application `bibliotheque -d <chemin verrs data>`
