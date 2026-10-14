@@ -248,24 +248,17 @@ int main(int argc, char* argv[]) {
                 string userId = getInput("Entrez l'ID de l'utilisateur : ");
                 Book* bookFound = library.findBookByISBN(isbn);
                 User* userFound = library.findUserById(userId);
-                string livreSupp = "";
-                string userSupp =  "";
+                string livreEmp = "";
+                string userEmp =  "";
                
                 if (bookFound != nullptr && userFound != nullptr) {
-                    cout << "ok1\n";
-                    livreSupp = library.findBookByISBN(isbn)->toFileFormat();
-                    cout << "ok2\n";
-                    userSupp = library.findUserById(userId)->toFileFormat();
-                    cout << "ok3\n";
+                    livreEmp = library.findBookByISBN(isbn)->toFileFormat();
+                    userEmp = library.findUserById(userId)->toFileFormat();
 
                     if (library.checkOutBook(isbn, userId)) {
-                        cout << "ok4\n";
-                        int pos = userSupp.find('|'); // source : (1)
-                        cout << "ok5\n";
-                        journalLine = "[EMPRUNT LIVRE] " + livreSupp + userSupp.substr(0, pos);
-                        cout << "ok6\n";
+                        int pos = userEmp.find('|'); // source : (1)
+                        journalLine = "[EMPRUNT LIVRE] " + livreEmp + userEmp.substr(0, pos);
                         fileManager.saveActionToFile(journalLine);
-                        cout << "ok7\n";
                         cout << "Livre emprunté avec succès ! (Sauvegardez avec no 12)\n";
                     } else {
                         cout << "Erreur : Impossible d'emprunter le livre. Vérifiez l'ISBN, l'ID utilisateur et la disponibilité du livre.\n";
@@ -274,18 +267,25 @@ int main(int argc, char* argv[]) {
                 else {
                     cout << "Erreur : Impossible d'emprunter le livre. Vérifiez l'ISBN, l'ID utilisateur et la disponibilité du livre.\n";
                 }
-                cout << "ok8\n";
                 pauseForInput();
                 break;
             }
             
             case 10: { // Return Book
                 string isbn = getInput("Entrez l'ISBN du livre à retourner : ");
-                
-                if (library.returnBook(isbn)) {
-                journalLine = "[RETOUR LIVRE]";
-                fileManager.saveActionToFile(journalLine);
-                    cout << "Livre retourné avec succès ! (Sauvegardez avec no 12)\n";
+                Book* bookFound = library.findBookByISBN(isbn);
+                string livreRetour = "";
+
+                if (bookFound != nullptr) {
+                    livreRetour = library.findBookByISBN(isbn)->toFileFormat();
+
+                    if (library.returnBook(isbn)) {
+                        journalLine = "[RETOUR LIVRE] " + livreRetour;
+                        fileManager.saveActionToFile(journalLine);
+                        cout << "Livre retourné avec succès ! (Sauvegardez avec no 12)\n";
+                    } else {
+                        cout << "Erreur : Impossible de retourner le livre. Vérifiez l'ISBN et que le livre est bien emprunté.\n";
+                    }
                 } else {
                     cout << "Erreur : Impossible de retourner le livre. Vérifiez l'ISBN et que le livre est bien emprunté.\n";
                 }
