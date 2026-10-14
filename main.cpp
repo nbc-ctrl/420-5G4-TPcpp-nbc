@@ -139,7 +139,6 @@ int main(int argc, char* argv[]) {
                 string livreSupp = "";
                 Book* bookFound = library.findBookByISBN(isbn);
                 
-                //if (bookFound != NULL) {
                 if (bookFound != nullptr) {
                     livreSupp = library.findBookByISBN(isbn)->toFileFormat();
                     
@@ -247,14 +246,35 @@ int main(int argc, char* argv[]) {
             case 9: { // Check Out Book
                 string isbn = getInput("Entrez l'ISBN du livre à emprunter : ");
                 string userId = getInput("Entrez l'ID de l'utilisateur : ");
-                
-                if (library.checkOutBook(isbn, userId)) {
-                journalLine = "[EMPRUNT LIVRE]";
-                fileManager.saveActionToFile(journalLine);
-                    cout << "Livre emprunté avec succès ! (Sauvegardez avec no 12)\n";
-                } else {
+                Book* bookFound = library.findBookByISBN(isbn);
+                User* userFound = library.findUserById(userId);
+                string livreSupp = "";
+                string userSupp =  "";
+               
+                if (bookFound != nullptr && userFound != nullptr) {
+                    cout << "ok1\n";
+                    livreSupp = library.findBookByISBN(isbn)->toFileFormat();
+                    cout << "ok2\n";
+                    userSupp = library.findUserById(userId)->toFileFormat();
+                    cout << "ok3\n";
+
+                    if (library.checkOutBook(isbn, userId)) {
+                        cout << "ok4\n";
+                        int pos = userSupp.find('|'); // source : (1)
+                        cout << "ok5\n";
+                        journalLine = "[EMPRUNT LIVRE] " + livreSupp + userSupp.substr(0, pos);
+                        cout << "ok6\n";
+                        fileManager.saveActionToFile(journalLine);
+                        cout << "ok7\n";
+                        cout << "Livre emprunté avec succès ! (Sauvegardez avec no 12)\n";
+                    } else {
+                        cout << "Erreur : Impossible d'emprunter le livre. Vérifiez l'ISBN, l'ID utilisateur et la disponibilité du livre.\n";
+                    }
+                }
+                else {
                     cout << "Erreur : Impossible d'emprunter le livre. Vérifiez l'ISBN, l'ID utilisateur et la disponibilité du livre.\n";
                 }
+                cout << "ok8\n";
                 pauseForInput();
                 break;
             }
@@ -356,3 +376,6 @@ int main(int argc, char* argv[]) {
     
     return 0;
 }
+
+// ====== SOURCE(S) ====== 
+// (1) : https://www.geeksforgeeks.org/cpp/substring-in-cpp/#:~:text=Extract%20Substring%20Before%20a%20Character
