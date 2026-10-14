@@ -12,3 +12,4 @@ Wed Oct 14 01:16:00 2026 - [RETRAIT LIVRE] Do you|Hello|123ABC|0|
 Wed Oct 14 01:21:52 2026 - [EMPRUNT LIVRE] Les Châtiments|Victor Hugo|9782070380956|1|Olivier Masson
 Wed Oct 14 01:30:53 2026 - [EMPRUNT LIVRE] Les Châtiments|Victor Hugo|9782070380956|1|Valérie Simon
 Wed Oct 14 01:31:25 2026 - [RETOUR LIVRE] Les Contemplations|Victor Hugo|9782070380932|0|
+Wed Oct 14 01:39:41 2026 - [QUITTER]
